@@ -1,14 +1,15 @@
 let map;
 let infoBar;
+let regions = [];
 
 function initialize() {
-  // Set up the map
+  // set up map
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 39.101871, lng: -94.582927 },
     zoom: 15,
   });
 
-  // Set up the Drawing Manager
+  // set up drawing manager
   const drawingManager = new google.maps.drawing.DrawingManager({
     drawingMode: google.maps.drawing.OverlayType.POLYGON,
     drawingControl: true,
@@ -19,17 +20,55 @@ function initialize() {
   });
   drawingManager.setMap(map);
 
-  // Add an event listener for when the polygon is completed
-  var polygons = [];
+  // add event listener for when region is completed
   google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
-    polygons.push(polygon);
-    const area = google.maps.geometry.spherical.computeArea(polygon.getPath());
-    alert(`Polygon area: ${area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
+    
+    // initialize region object
+    var coords = getPolygonCoords(polygon);
+    const polygonArea = google.maps.geometry.spherical.computeArea(polygon.getPath());
+    var region = {
+      lat: coords[0],
+      long: coords[1],
+      name: "Region " + String(regions.length + 1),
+      area: polygonArea
+    }
+    
+    // set active region
+    let activeRegion = region;
+
+    regions.push(region);
+    addToDropdown(region);
+    
+    // nonessential alert
+    alert(`Polygon area: ${region.area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
+    console.log(getPolygonCoords(polygon));
+  });
+
+  google.maps.event.addListener(drawingManager, "click", (polygon) => {
+    activeRegion = polygon;
+    console.log("click");
   });
 }
 
+// gets coordinates of polygon
+function getPolygonCoords(poly) {
+  var len = poly.getPath().getLength();
+  var coordinates = []
+  for (var i = 0; i < len; i++) {
+    coordinates.push(poly.getPath().getAt(i).toUrlValue(10));
+  }
+  return coordinates;
+}
 
-function calculateArea() {
-  const area = google.maps.geometry.spherical.computeArea(selectedShape.getPath());
-  areaLabel.innerHTML = (area / 1000000).toFixed(2) + " km²";
+// adds given region to dropdown
+function addToDropdown(region) {
+  const dropdown = document.getElementById("active-region");
+
+  let option = document.createElement("option");
+  option.setAttribute('value', region.name);
+
+  let optionText = document.createTextNode(region.name);
+  option.appendChild(optionText);
+
+  dropdown.appendChild(option);
 }

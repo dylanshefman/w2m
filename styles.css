@@ -35,8 +35,11 @@ body {
   width: 30vw;
   display: flex;
   justify-content: center;
-  align-items: center;
   z-index: 1;
+}
+
+#choose-active {
+  position: relative;
 }
 
 #area-label {
