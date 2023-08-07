@@ -23,12 +23,18 @@ function initialize() {
   // add event listener for when region is completed
   google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
     
+    // show region manipulation interface
+    var interface = document.getElementById("choose-active");
+    interface.classList.remove("hidden");
+    // hide welcome message
+    var welcome = document.getElementById("get-started");
+    welcome.classList.add("hidden");
+
     // initialize region object
-    var coords = getPolygonCoords(polygon);
+    var polygonCoords = getPolygonCoords(polygon);
     const polygonArea = google.maps.geometry.spherical.computeArea(polygon.getPath());
     var region = {
-      lat: coords[0],
-      long: coords[1],
+      coords: polygonCoords,
       name: "Region " + String(regions.length + 1),
       area: polygonArea
     }
