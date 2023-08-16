@@ -1,6 +1,10 @@
-let map;
-let infoBar;
-let regions = [];
+var map;
+var infoBar;
+var regions = [];
+
+/////////
+// MAP //
+/////////
 
 function initialize() {
   // set up map
@@ -20,9 +24,16 @@ function initialize() {
   });
   drawingManager.setMap(map);
 
+  // generates a unique id among those created in current session
+  var id = 0;
+  function generateId() {
+    id++;
+    return id;
+  }
+
   // add event listener for when region is completed
   google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
-    
+
     // show region manipulation interface
     var interface = document.getElementById("choose-active");
     interface.classList.remove("hidden");
@@ -34,37 +45,59 @@ function initialize() {
     var polygonCoords = getPolygonCoords(polygon);
     const polygonArea = google.maps.geometry.spherical.computeArea(polygon.getPath());
     var region = {
-      coords: polygonCoords,
       name: "Region " + String(regions.length + 1),
-      area: polygonArea
+      id: generateId(),
+      coords: polygonCoords,
+      area: polygonArea,
+      poly: polygon
     }
     
-    // set active region
-    let activeRegion = region;
-
     regions.push(region);
     addToDropdown(region);
+    setActiveRegion(region);
     
     // nonessential alert
     alert(`Polygon area: ${region.area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
     console.log(getPolygonCoords(polygon));
   });
-
-  google.maps.event.addListener(drawingManager, "click", (polygon) => {
-    activeRegion = polygon;
-    console.log("click");
-  });
 }
 
 // gets coordinates of polygon
 function getPolygonCoords(poly) {
-  var len = poly.getPath().getLength();
-  var coordinates = []
-  for (var i = 0; i < len; i++) {
-    coordinates.push(poly.getPath().getAt(i).toUrlValue(10));
+  let len = poly.getPath().getLength();
+  let coordinates = []
+  for (let i = 0; i < len; i++) {
+    let coordStrings = poly.getPath().getAt(i).toUrlValue(10).split(",");
+    let coordFloats = [];
+    for (let j = 0; j < coordStrings.length; j++) {
+      coordFloats.push(parseFloat(coordStrings[j]));
+    }
+    coordinates.push(coordFloats);
   }
   return coordinates;
 }
+
+function setActiveRegion(region) {
+  activeRegion = region;
+  setActiveStyle(region);
+  for (let i = 0; i < regions.length; i++) {
+    if (regions[i].id != region.id) {
+      setInactiveStyle(regions[i]);
+    }
+  }
+}
+
+function setActiveStyle(region) {
+  region.poly.setOptions({strokeWeight: 4.0});
+}
+
+function setInactiveStyle(region) {
+  region.poly.setOptions({strokeWeight: 2.0});
+}
+
+/////////////
+// SIDEBAR //
+/////////////
 
 // adds given region to dropdown
 function addToDropdown(region) {
@@ -78,3 +111,11 @@ function addToDropdown(region) {
 
   dropdown.appendChild(option);
 }
+
+// switches active region on dropdown change
+const dropdown = document.getElementById("active-region");
+dropdown.addEventListener("change", function() {
+  const selectedOption = dropdown.selectedIndex;
+  activeRegion = regions[selectedOption];
+  console.log(activeRegion);
+});
