@@ -47,9 +47,10 @@ function initialize() {
     // initialize region object
     var polygonCoords = getPolygonCoords(polygon);
     const polygonArea = google.maps.geometry.spherical.computeArea(polygon.getPath());
+    let newId = generateId();
     var region = {
-      name: "Region " + String(regions.length + 1),
-      id: generateId(),
+      name: "Region " + String(newId),
+      id: newId,
       coords: polygonCoords,
       area: polygonArea,
       poly: polygon
