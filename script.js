@@ -1,6 +1,7 @@
 var map;
 var infoBar;
 var regions = [];
+const dropdown = document.getElementById("active-region");
 
 /////////
 // MAP //
@@ -80,6 +81,8 @@ function getPolygonCoords(poly) {
 function setActiveRegion(region) {
   activeRegion = region;
   setActiveStyle(region);
+  document.getElementById("choose-active").value = region.name;
+
   for (let i = 0; i < regions.length; i++) {
     if (regions[i].id != region.id) {
       setInactiveStyle(regions[i]);
@@ -90,7 +93,6 @@ function setActiveRegion(region) {
 function setActiveStyle(region) {
   region.poly.setOptions({strokeWeight: 4.0});
 }
-
 function setInactiveStyle(region) {
   region.poly.setOptions({strokeWeight: 2.0});
 }
@@ -101,8 +103,6 @@ function setInactiveStyle(region) {
 
 // adds given region to dropdown
 function addToDropdown(region) {
-  const dropdown = document.getElementById("active-region");
-
   let option = document.createElement("option");
   option.setAttribute('value', region.name);
 
@@ -113,9 +113,6 @@ function addToDropdown(region) {
 }
 
 // switches active region on dropdown change
-const dropdown = document.getElementById("active-region");
 dropdown.addEventListener("change", function() {
-  const selectedOption = dropdown.selectedIndex;
-  activeRegion = regions[selectedOption];
-  console.log(activeRegion);
+  setActiveRegion(regions[dropdown.selectedIndex]);
 });
