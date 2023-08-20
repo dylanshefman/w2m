@@ -81,7 +81,7 @@ function getPolygonCoords(poly) {
 function setActiveRegion(region) {
   activeRegion = region;
   setActiveStyle(region);
-  document.getElementById("choose-active").value = region.name;
+  dropdown.value = region.name;
 
   for (let i = 0; i < regions.length; i++) {
     if (regions[i].id != region.id) {
@@ -97,9 +97,9 @@ function setInactiveStyle(region) {
   region.poly.setOptions({strokeWeight: 2.0});
 }
 
-/////////////
-// SIDEBAR //
-/////////////
+//////////////
+// DROPDOWN //
+//////////////
 
 // adds given region to dropdown
 function addToDropdown(region) {
@@ -116,3 +116,8 @@ function addToDropdown(region) {
 dropdown.addEventListener("change", function() {
   setActiveRegion(regions[dropdown.selectedIndex]);
 });
+
+function setActiveDropdown(region) {
+  if (activeRegion.id == region.id) { return; }
+  dropdown.value = region.name;
+}
