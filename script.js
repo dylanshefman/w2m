@@ -2,6 +2,7 @@ var map;
 var infoBar;
 var regions = [];
 const dropdown = document.getElementById("active-region");
+const deleteButton = document.getElementById("delete-region");
 
 /////////
 // MAP //
@@ -36,10 +37,11 @@ function initialize() {
   google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
 
     // show region manipulation interface
-    var interface = document.getElementById("choose-active");
+    let interface = document.getElementById("choose-active");
     interface.classList.remove("hidden");
+    deleteButton.classList.remove("hidden");
     // hide welcome message
-    var welcome = document.getElementById("get-started");
+    let welcome = document.getElementById("get-started");
     welcome.classList.add("hidden");
 
     // initialize region object
@@ -60,6 +62,7 @@ function initialize() {
     // nonessential alert
     alert(`Polygon area: ${region.area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
     console.log(getPolygonCoords(polygon));
+    console.log(region)
   });
 }
 
@@ -120,4 +123,37 @@ dropdown.addEventListener("change", function() {
 function setActiveDropdown(region) {
   if (activeRegion.id == region.id) { return; }
   dropdown.value = region.name;
+}
+
+/////////////
+// SIDEBAR //
+/////////////
+
+deleteButton.addEventListener("click", function() {
+  for (let i = 0; i < regions.length; i++) {
+    if (regions[i].id == activeRegion.id) {
+      dropdown.remove(i);
+      regions[i].poly.setMap(null);
+      regions.splice(i, 1);
+      break;
+    }
+  }
+  if (regions.length > 0) {
+    setActiveRegion(regions[regions.length - 1]);
+  }
+  else {
+    activeRegion = null;
+    resetSidebar();
+  }
+  console.log(regions);
+})
+
+function resetSidebar() {
+  // hide region manipulation interface
+  let interface = document.getElementById("choose-active");
+  interface.classList.add("hidden");
+  deleteButton.classList.add("hidden");
+  // show welcome message
+  let welcome = document.getElementById("get-started");
+  welcome.classList.remove("hidden");
 }

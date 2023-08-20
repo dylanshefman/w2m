@@ -86,3 +86,24 @@ h2 {
 .hidden {
   display: none;
 }
+
+#delete-region {
+  position: absolute;
+  bottom: 10px;
+  width: 15vw;
+  height: 5vh;
+  background-color: red;
+  border-radius: 10px;
+}
+
+#delete-region:hover {
+  background-color: darkred;
+}
+
+#delete-region p {
+  color: white;
+  font-weight: bold;
+  position: relative;
+  left: 50%; /* Center horizontally */
+  top: 50%; /* Center vertically */
+}
