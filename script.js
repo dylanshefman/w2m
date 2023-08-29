@@ -63,7 +63,7 @@ function initialize() {
     // nonessential alert
     alert(`Polygon area: ${region.area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
     console.log(getPolygonCoords(polygon));
-    console.log(region)
+    console.log(regions)
   });
 }
 
@@ -158,3 +158,8 @@ function resetSidebar() {
   let welcome = document.getElementById("get-started");
   welcome.classList.remove("hidden");
 }
+
+var rename = document.getElementById("rename-text");
+rename.addEventListener("click", function() {
+  activeRegion.name = rename.innerHTML;
+})
