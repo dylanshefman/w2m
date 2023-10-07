@@ -37,9 +37,10 @@ function initialize() {
   google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
 
     // show region manipulation interface
-    let interface = document.getElementById("choose-active");
+    let interface = document.getElementById("active-region");
     interface.classList.remove("hidden");
     deleteButton.classList.remove("hidden");
+    rename.classList.remove("hidden")
     // hide welcome message
     let welcome = document.getElementById("get-started");
     welcome.classList.add("hidden");
@@ -151,15 +152,16 @@ deleteButton.addEventListener("click", function() {
 
 function resetSidebar() {
   // hide region manipulation interface
-  let interface = document.getElementById("choose-active");
+  let interface = document.getElementById("active-region");
   interface.classList.add("hidden");
   deleteButton.classList.add("hidden");
+  rename.classList.add("hidden");
   // show welcome message
   let welcome = document.getElementById("get-started");
   welcome.classList.remove("hidden");
 }
 
-var rename = document.getElementById("rename-text");
+var rename = document.getElementById("rename");
 rename.addEventListener("click", function() {
-  activeRegion.name = rename.innerHTML;
+  document.getElementById("rename-input").classList.remove("hidden");
 })

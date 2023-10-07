@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100;200;300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   </head>
   <body>
     <header>
@@ -23,19 +24,12 @@
     <div id="container">
       <div id="map"></div>
       <div id="sidebar">
-        <div class="hidden" id="choose-active">
-          <h3>Choose active region</h3>
-          <select id="active-region"></select>
-        </div>
+        <select id="active-region" class="hidden"></select>
         <div id="get-started">
           <h3>Draw a region to get started!</h3>
         </div>
-        <div id="rename">
-          <p id="rename-text" contenteditable="true">Rename</p>
-        </div>
-        <div class="hidden" id="delete-region">
-          <p>Delete Region</p>
-        </div>
+        <i id="rename" class="hidden" class="fas fa-pencil-alt"></i>
+        <button class="hidden" id="delete-region">Delete Region</button>
       </div>
     </div>
     <script src="script.js"></script>
