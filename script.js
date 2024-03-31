@@ -38,14 +38,14 @@ signupBtn = document.getElementById("signup-btn")
 
 
 walkSubmit = document.getElementById("walk-submit")
-// log a walk - add the date and mileage to user's account
+// log a walk - add a new walk to the user's account including the date and mileage
 
 
 
 walksDiv = document.getElementById("walks")
-walks = // get list of current user's walks here - i'll take care of the styling
+walks = // import list of current user's walks here
 
 
 
 leaderboardDiv = document.getElementById("leaderboard")
-users = // get list of all users and all their walks so i can make a leaderboard out of it, include whether or not they opted out of leaderboard when signing up
+users = // import list of all users and all their walks so i can make a leaderboard out of it, include whether or not they opted out of leaderboard when signing up
