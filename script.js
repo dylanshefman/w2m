@@ -34,6 +34,8 @@ landmarks.forEach(function(landmark) {
 loginBtn = document.getElementById("login-btn")
 signupBtn = document.getElementById("signup-btn")
 // log in and sign up functionality - fields should be first, last, email, password, and a checkbox to opt out of leaderboard
+// if possible the login/signup pages should be a popup rather than navigating to a new page
+// if that's too hard nbd
 
 
 
