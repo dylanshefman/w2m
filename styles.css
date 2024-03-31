@@ -72,9 +72,7 @@ body {
 
 #milan, #me, #leaderboard {
   border: 3px solid green;
-}
-
-#signup-box {
-  display: none;
-  border: 1px solid black;
+  border-radius: 20px;
+  margin: 10px;
+  padding-left: 10px;
 }

@@ -2,7 +2,6 @@
 // MAP //
 /////////
 
-// instantiate map and add landmarks
 var map = L.map('map').setView([43.8, -84.584726], 7);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -24,15 +23,29 @@ landmarks.forEach(function(landmark) {
     className: "label-text"}).openTooltip();
 });
 
-document.addEventListener("DOMContentLoaded", function() {
-  var signupBtn = document.getElementById("signupBtn");
-  var signupBox = document.getElementById("signupBox");
+//////////
+// USER //
+//////////
 
-  signupBtn.addEventListener("click", function() {
-    if (signupBox.style.display === "none") {
-      signupBox.style.display = "block";
-    } else {
-      signupBox.style.display = "none";
-    }
-  });
-});
+
+
+// JORDAN:
+
+loginBtn = document.getElementById("login-btn")
+signupBtn = document.getElementById("signup-btn")
+// log in and sign up functionality - fields should be first, last, email, password, and a checkbox to opt out of leaderboard
+
+
+
+walkSubmit = document.getElementById("walk-submit")
+// log a walk - add the date and mileage to user's account
+
+
+
+walksDiv = document.getElementById("walks")
+walks = // get list of current user's walks here - i'll take care of the styling
+
+
+
+leaderboardDiv = document.getElementById("leaderboard")
+users = // get list of all users and all their walks so i can make a leaderboard out of it, include whether or not they opted out of leaderboard when signing up
