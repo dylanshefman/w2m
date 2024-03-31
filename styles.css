@@ -1,21 +1,6 @@
-#title {
-  background-color: black;
-  height: 10vh;
-  display: flex;
-  align-items: center;
-}
-
-.header {
-  display: inline-block;
-}
-
-.header h1, h2 {
-  color: white;
-}
-
 body {
-  font-family: Anuphan;
   margin: 0;
+  padding: 0;
 }
 
 #container {
@@ -23,80 +8,73 @@ body {
   top: 10vh;
   display: flex;
   height: 90vh;
-  width: 100vw;
+  width: 100%;
 }
   
 #map {
-  width: 100vw;
+  width: 40%;
 }
 
 #sidebar {
-  right: 90vw;
-  width: 30vw;
+  right: 0;
+  width: 60%;
   z-index: 1;
   display: flex;
+  border: 1px solid red;
+}
+
+#left-col {
+  display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
-#area-label {
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+#title {
+  margin: 0;
+}
+
+#login-signup {
+  display: flex;
+}
+
+#signup,
+#login {
+  margin-left: 10px; /* Adjust as needed */
+}
+
+
+.leaflet-tooltip {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.label-text {
+  font-size: 13px;
   font-weight: bold;
 }
 
-#area {
-  font-size: 1.2em;
-  font-weight: bold;
+#milan, #me {
+  flex-grow: 1;
 }
 
-h1 {
-  font-weight: 200;
-  font-size: 40px;
-  margin-left: 40px;
+#leaderboard {
+  flex-grow: 2;
 }
 
-h2 {
-  font-size: 20px;
-  font-weight: 300;
-  margin-left: 50px;
+#milan, #me, #leaderboard {
+  border: 3px solid green;
 }
 
-#me {
-  font-weight: 500;
-}
-
-
-#get-started-text {
-  font-family: Anuphan;
-  font-weight: 500;
-  font-size: 40px;
-  text-align: center;
-}
-
-.hidden {
+#signup-box {
   display: none;
+  border: 1px solid black;
 }
-
-#delete-region {
-  position: absolute;
-  bottom: 10px;
-  width: 15vw;
-  height: 5vh;
-  background-color: red;
-  color: white;
-  border-radius: 10px;
-}
-
-#delete-region:hover {
-  background-color: darkred;
-}
-
-#active-region {
-  font-size: 25px;
-  border: 0;
-  font-family: Anuphan;
-  width: 100%; /* Set the width to 100% */
-  box-sizing: border-box; /* Include padding and border in the width */
-  padding: 10px; /* Add padding for better appearance */
-  margin: 0; /* Remove any default margin */
-  align-self: flex-start;
-}
-

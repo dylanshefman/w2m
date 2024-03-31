@@ -1,167 +1,38 @@
-var map;
-var infoBar;
-var regions = [];
-const dropdown = document.getElementById("active-region");
-const deleteButton = document.getElementById("delete-region");
-
 /////////
 // MAP //
 /////////
 
-function initialize() {
-  // set up map
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 39.101871, lng: -94.582927 },
-    zoom: 15,
-  });
+// instantiate map and add landmarks
+var map = L.map('map').setView([43.8, -84.584726], 7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 
-  // set up drawing manager
-  const drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: google.maps.drawing.OverlayType.POLYGON,
-    drawingControl: true,
-    drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: [google.maps.drawing.OverlayType.POLYGON],
-    },
-  });
-  drawingManager.setMap(map);
-
-  // generates a unique id among those created in current session
-  var id = 0;
-  function generateId() {
-    id++;
-    return id;
-  }
-
-  // add event listener for when region is completed
-  google.maps.event.addListener(drawingManager, "polygoncomplete", (polygon) => {
-
-    // show region manipulation interface
-    let interface = document.getElementById("active-region");
-    interface.classList.remove("hidden");
-    deleteButton.classList.remove("hidden");
-    rename.classList.remove("hidden")
-    // hide welcome message
-    let welcome = document.getElementById("get-started");
-    welcome.classList.add("hidden");
-
-    // initialize region object
-    var polygonCoords = getPolygonCoords(polygon);
-    const polygonArea = google.maps.geometry.spherical.computeArea(polygon.getPath());
-    let newId = generateId();
-    var region = {
-      name: "Region " + String(newId),
-      id: newId,
-      coords: polygonCoords,
-      area: polygonArea,
-      poly: polygon
-    }
-    
-    regions.push(region);
-    addToDropdown(region);
-    setActiveRegion(region);
-    
-    // nonessential alert
-    alert(`Polygon area: ${region.area.toLocaleString('en-US', {maximumFractionDigits: 0})} square meters`);
-    console.log(getPolygonCoords(polygon));
-    console.log(regions)
-  });
-}
-
-// gets coordinates of polygon
-function getPolygonCoords(poly) {
-  let len = poly.getPath().getLength();
-  let coordinates = []
-  for (let i = 0; i < len; i++) {
-    let coordStrings = poly.getPath().getAt(i).toUrlValue(10).split(",");
-    let coordFloats = [];
-    for (let j = 0; j < coordStrings.length; j++) {
-      coordFloats.push(parseFloat(coordStrings[j]));
-    }
-    coordinates.push(coordFloats);
-  }
-  return coordinates;
-}
-
-function setActiveRegion(region) {
-  activeRegion = region;
-  setActiveStyle(region);
-  dropdown.value = region.name;
-
-  for (let i = 0; i < regions.length; i++) {
-    if (regions[i].id != region.id) {
-      setInactiveStyle(regions[i]);
-    }
-  }
-}
-
-function setActiveStyle(region) {
-  region.poly.setOptions({strokeWeight: 4.0});
-}
-function setInactiveStyle(region) {
-  region.poly.setOptions({strokeWeight: 2.0});
-}
-
-//////////////
-// DROPDOWN //
-//////////////
-
-// adds given region to dropdown
-function addToDropdown(region) {
-  let option = document.createElement("option");
-  option.setAttribute('value', region.name);
-
-  let optionText = document.createTextNode(region.name);
-  option.appendChild(optionText);
-
-  dropdown.appendChild(option);
-}
-
-// switches active region on dropdown change
-dropdown.addEventListener("change", function() {
-  setActiveRegion(regions[dropdown.selectedIndex]);
+landmarks = [
+  {name: "Milan", lat: 42.084905, lon: -83.683072},
+  {name: "Fenton", lat: 42.797731, lon: -83.704868},
+  {name: "Frankenmuth", lat: 43.331589, lon: -83.738242},
+  {name: "Standish", lat: 43.982767, lon: -83.959743},
+  {name: "Roscommon", lat: 44.498532, lon: -84.592481},
+  {name: "Vanderbilt", lat: 45.142606, lon: -84.663216},
+  {name: "St. Ignace", lat: 45.872606, lon: -84.730787}
+]
+landmarks.forEach(function(landmark) {
+  L.circleMarker([landmark.lat, landmark.lon], { radius: 5 }).addTo(map).bindTooltip(landmark.name, {
+    permanent: true,
+    direction: "right",
+    className: "label-text"}).openTooltip();
 });
 
-function setActiveDropdown(region) {
-  if (activeRegion.id == region.id) { return; }
-  dropdown.value = region.name;
-}
+document.addEventListener("DOMContentLoaded", function() {
+  var signupBtn = document.getElementById("signupBtn");
+  var signupBox = document.getElementById("signupBox");
 
-/////////////
-// SIDEBAR //
-/////////////
-
-deleteButton.addEventListener("click", function() {
-  for (let i = 0; i < regions.length; i++) {
-    if (regions[i].id == activeRegion.id) {
-      dropdown.remove(i);
-      regions[i].poly.setMap(null);
-      regions.splice(i, 1);
-      break;
+  signupBtn.addEventListener("click", function() {
+    if (signupBox.style.display === "none") {
+      signupBox.style.display = "block";
+    } else {
+      signupBox.style.display = "none";
     }
-  }
-  if (regions.length > 0) {
-    setActiveRegion(regions[regions.length - 1]);
-  }
-  else {
-    activeRegion = null;
-    resetSidebar();
-  }
-  console.log(regions);
-})
-
-function resetSidebar() {
-  // hide region manipulation interface
-  let interface = document.getElementById("active-region");
-  interface.classList.add("hidden");
-  deleteButton.classList.add("hidden");
-  rename.classList.add("hidden");
-  // show welcome message
-  let welcome = document.getElementById("get-started");
-  welcome.classList.remove("hidden");
-}
-
-var rename = document.getElementById("rename");
-rename.addEventListener("click", function() {
-  document.getElementById("rename-input").classList.remove("hidden");
-})
+  });
+});

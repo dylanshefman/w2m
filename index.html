@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Polygon Area Calculator</title>
+    <title>Walk to Mackinac</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@100;200;300;400;500;600;700&family=Poppins:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   </head>
   <body>
     <header>
-      <div id="title">
-        <div class="header">
-          <h1>Upzone<span id="me">Me</span></h1>
+      <div id="header">
+        <div id="title">
+          <h1>Walk to Mackinac</h1>
         </div>
-        <div class="header">
-          <h2>Reimagine your favorite awful land uses</h2>
+        <div id="login-signup">
+          <div id="signup">
+            <button>Sign Up</button>
+          </div>
+          <div id="login">
+            <button>Log In</button>
+            <div id="signup-box">
+              <h2>Sign Up Form</h2>
+              <input type="text" placeholder="Username"><br>
+              <input type="password" placeholder="Password"><br>
+              <button id="submitBtn">Submit</button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
     <div id="container">
       <div id="map"></div>
       <div id="sidebar">
-        <select id="active-region" class="hidden"></select>
-        <div id="get-started">
-          <h3>Draw a region to get started!</h3>
+        <div id="left-col">
+          <div id="milan">
+            <h1>Milan</h1>
+          </div>
+          <div id="me">
+            <h1>Me</h1>
+          </div>
         </div>
-        <i id="rename" class="hidden" class="fas fa-pencil-alt"></i>
-        <button class="hidden" id="delete-region">Delete Region</button>
-      </div>
+        <div id="leaderboard">
+          <h1>Leaderboard</h1>
+        </div>
     </div>
     <script src="script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0vtmeoYscksa1_R6hj-XA29rCH4gm5ps&callback=initialize&libraries=drawing,geometry"></script>
   </body>
 </html>
