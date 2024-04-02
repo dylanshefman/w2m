@@ -13,6 +13,8 @@ body {
   
 #map {
   width: 40%;
+  position: relative;
+  z-index: 1;
 }
 
 #sidebar {
@@ -75,4 +77,60 @@ body {
   border-radius: 20px;
   margin: 10px;
   padding-left: 10px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 2;
+}
+
+/* Overlay styles */
+.active-popup {
+  overflow: hidden;
+}
+
+.active-popup::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+input {
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+#signup-close-btn,
+#login-close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+}
+
+#signup-close-btn:hover,
+#login-close-btn:hover {
+  color: #555;
 }
