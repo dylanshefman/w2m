@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Walk to Mackinac</title>
     <meta charset="utf-8">
@@ -33,7 +33,7 @@
           <div id="me">
             <h1>Me</h1>
             <h2>Log a Walk</h2>
-            <input type="date">
+            <input type="date" placeholder="mm/dd/yyyy">
             <input type="number" placeholder="Distance (miles)">
             <input type="submit" id="walk-submit">
             <div id="walks"></div>
@@ -43,6 +43,47 @@
           <h1>Leaderboard</h1>
         </div>
     </div>
+
+    <div id="signup-form-popup" class="popup">
+      <form id="signup-form">
+        <h2>Sign Up</h2>
+        <input type="text" placeholder="First Name" name="firstname" required>
+        <input type="text" placeholder="Last Name" name="lastname" required>
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <label>
+          <input type="checkbox" name="optout"> Opt out of leaderboard
+        </label>
+        <button type="submit" id="signup-submit-btn">Submit</button>
+        <button type="button" id="signup-close-btn">&times;</button>
+      </form>
+    </div>
+
+    <div id="login-form-popup" class="popup">
+      <form id="login-form">
+        <h2>Log In</h2>
+        <input type="email" placeholder="Email" name="email" required>
+        <input type="password" placeholder="Password" name="password" required>
+        <button type="submit" id="login-submit-btn">Submit</button>
+        <button type="button" id="login-close-btn">&times;</button>
+      </form>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyAMZlBKwsaNVM28F1tdWBRWYNPFyl0ULfg",
+        authDomain: "walk-to-mackinac.firebaseapp.com",
+        projectId: "walk-to-mackinac",
+        storageBucket: "walk-to-mackinac.appspot.com",
+        messagingSenderId: "27095415798",
+        appId: "1:27095415798:web:16140932ca6aecf78025d7",
+        measurementId: "G-THNHXMQJPL"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
