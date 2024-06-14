@@ -1,6 +1,22 @@
+#logo, #wordmark {
+  max-height: 60px;
+  max-width: 55%;
+  margin-right: 20px;
+}
+
+#logos {
+  display: flex;
+  align-items: center;
+}
+
+#images {
+  width: 50%;
+}
+
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Poppins';
 }
 
 #container {
@@ -22,10 +38,10 @@ body {
   width: 60%;
   z-index: 1;
   display: flex;
-  border: 1px solid red;
+  height: 98%;
 }
 
-#left-col {
+#left-col, #right-col {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -49,7 +65,7 @@ body {
 
 #signup,
 #login {
-  margin-left: 10px; /* Adjust as needed */
+  margin-left: 10px;
 }
 
 
@@ -64,19 +80,50 @@ body {
   font-weight: bold;
 }
 
-#milan, #me {
-  flex-grow: 1;
+#sign-in-log-walk {
+  border: 2px solid black;
+  height: 100%;
+}
+
+#milan {
+  background-color: lightgreen;
+  flex: 1;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+
+#leaderboard {
+  background-color: lightblue;
+  margin-right: 15px;
+  flex: 5;
+}
+
+#me, #log-walk-div {
+  background-color: khaki;
+}
+
+#me {
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+
+#log-walk-div {
+  margin-bottom: 15px;
 }
 
 #leaderboard {
   flex-grow: 2;
 }
 
-#milan, #me, #leaderboard {
-  border: 3px solid green;
+#milan, #me, #leaderboard, #sign-in-log-walk, #log-walk-div {
   border-radius: 20px;
-  margin: 10px;
-  padding-left: 10px;
+  margin-left: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .popup {
@@ -86,10 +133,10 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
+  border-radius: 10px;
   z-index: 2;
 }
 
-/* Overlay styles */
 .active-popup {
   overflow: hidden;
 }
@@ -133,4 +180,163 @@ input {
 #signup-close-btn:hover,
 #login-close-btn:hover {
   color: #555;
+}
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
+.leaflet-marker-icon {
+  display: none !important;
+}
+
+.hidden {
+  display: none;
+}
+
+#milan h2, #milan h4 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#sign-up-form-popup, #login-form-popup {
+  border-radius: 15px;
+}
+
+.walk {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.walk p {
+  margin: 10px;
+}
+
+#sign-in-log-walk, #log-walk-div, #me, #milan, #leaderboard {
+  padding-left: 20px;
+}
+
+#leaderboard-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-div {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-div p {
+  margin: 0;
+}
+
+#leaderboard-content {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#leaderboard-content td {
+  padding: 8px;
+}
+
+#leaderboard-content tr:not(:first-child) {
+  border-top: 0.5px solid black;
+}
+
+#leaderboard-content td:nth-child(1) {
+  width: 10%;
+}
+
+#leaderboard-content td:nth-child(2) {
+  width: 50%;
+}
+
+#leaderboard-content td:nth-child(3) {
+  width: 40%;
+}
+
+#leaderboard-content tr {
+  align-items: center;
+}
+
+
+
+
+#walks {
+  display: flex;
+  flex-direction: column;
+}
+
+.walk {
+  display: flex;
+  flex-direction: row;
+}
+
+.walk p {
+  margin: 0;
+}
+
+#walks {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#walks td {
+  padding: 8px;
+}
+
+#walks tr:not(:first-child) {
+  border-top: 0.5px solid black;
+}
+
+#walks td:nth-child(1) {
+  width: 50%;
+}
+
+#walks td:nth-child(2) {
+  width: 50%;
+}
+
+#walks tr {
+  align-items: center;
+}
+
+
+#total-mileage {
+  font-size: 50px;
+  margin: 0;
+}
+
+#milan h4 {
+  font-weight: normal;
+  font-size: large;
+  margin: 0;
+}
+
+#signup-btn, #login-btn, #signup-submit-btn, #login-submit-btn {
+  background-color: #cbdd95;
+  padding: 10px;
+  border: 0px;
+  border-radius: 10px;
+}
+
+#signup-btn:hover, #login-btn:hover, #signup-submit-btn:hover, #login-submit-btn:hover {
+  cursor: pointer;
+  background-color: #94a26c;
+}
+
+#signup-submit-btn, #login-submit-btn {
+  margin-top: 10px;
+}
+
+#walk-submit {
+  border-radius: 15px;
+  border: 2px solid white;
+  background-color: white;
+}
+
+#walk-submit:hover {
+  border: 2px solid black;
 }

@@ -5,13 +5,18 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
   </head>
   <body>
     <header>
       <div id="header">
-        <div id="title">
-          <h1>Walk to Mackinac</h1>
+        <div id="logos">
+          <img src="img/logo.png" id="logo">
+          <img src="img/wordmark.png" id="wordmark">
         </div>
         <div id="login-signup">
           <div id="signup">
@@ -27,32 +32,46 @@
       <div id="map"></div>
       <div id="sidebar">
         <div id="left-col">
-          <div id="milan">
-            <h1>Milan</h1>
+          <div id="sign-in-log-walk">
+            <h2>My Walks</h2>
+            <p>Your walks will appear here once you've logged in.</p>
           </div>
-          <div id="me">
-            <h1>Me</h1>
-            <h2>Log a Walk</h2>
-            <input type="date" placeholder="mm/dd/yyyy">
-            <input type="number" placeholder="Distance (miles)">
-            <input type="submit" id="walk-submit">
-            <div id="walks"></div>
+          <div id="log-walk-div" class="hidden">
+            <h2 id="log-a-walk">Log a Walk</h2>
+            <form id="log-walk">
+              <input type="date" placeholder="mm/dd/yyyy" name="date" required>
+              <input type="number" placeholder="Distance (miles)" name="mileage" step="any" required>
+              <input type="submit" id="walk-submit">
+            </form>
+          </div>
+          <div id="me" class="hidden">
+            <h2>My Walks</h2>
+            <table id="walks"></table>
           </div>
         </div>
-        <div id="leaderboard">
-          <h1>Leaderboard</h1>
+        <div id="right-col">
+          <div id="milan">
+              <div id="milan-content">
+              <h4>Milan has walked</h4>
+              <h2 id="total-mileage"></h2>
+              <h4>this summer!</h4>
+            </div>
+          </div>
+          <div id="leaderboard">
+            <h2>Leaderboard</h2>
+            <p id="leaderboard-message">Log in to view leaderboard.</p>
+            <table id="leaderboard-content"></table>
+          </div>
         </div>
     </div>
 
     <div id="signup-form-popup" class="popup">
       <form id="signup-form">
         <h2>Sign Up</h2>
-        <input type="text" placeholder="First Name" name="firstname" required>
-        <input type="text" placeholder="Last Name" name="lastname" required>
-        <input type="email" placeholder="Email" name="email" required>
+        <input type="username" placeholder="Username" name="username" required>
         <input type="password" placeholder="Password" name="password" required>
         <label>
-          <input type="checkbox" name="optout"> Opt out of leaderboard
+          <input type="checkbox" name="optout" id="optout"> Opt out of leaderboard
         </label>
         <button type="submit" id="signup-submit-btn">Submit</button>
         <button type="button" id="signup-close-btn">&times;</button>
@@ -62,7 +81,7 @@
     <div id="login-form-popup" class="popup">
       <form id="login-form">
         <h2>Log In</h2>
-        <input type="email" placeholder="Email" name="email" required>
+        <input type="username" placeholder="Username" name="username" required>
         <input type="password" placeholder="Password" name="password" required>
         <button type="submit" id="login-submit-btn">Submit</button>
         <button type="button" id="login-close-btn">&times;</button>
