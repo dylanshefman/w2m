@@ -178,6 +178,10 @@ signupSubmit.addEventListener('click', (e) => {
   var username = signupform.username.value;
   var password = signupform.password.value;
   var optout = document.getElementById("optout").checked;
+  var displayName = "";
+  if (!optout) {
+    displayName = signupform.displayName.value;
+  }
 
   // Check if the username already exists
   db.collection('users').where('username', '==', username.toLowerCase()).get().then((snapshot) => {
@@ -189,6 +193,7 @@ signupSubmit.addEventListener('click', (e) => {
         username: username,
         password: password,
         optout: optout,
+        displayName: displayName,
         mileage: [],
         dates: []
       })
@@ -394,8 +399,11 @@ async function displayLeaderboard() {
         rankElement.classList.add("rank");
 
         // create username element
-        let usernameElement = document.createElement('td');
-        usernameElement.textContent = user.username;
+        let displayNameElement = document.createElement('td');
+        displayNameElement.textContent = user.displayName;
+        if (user.username == currentUser.username) {
+          displayNameElement.classList.add("bold");
+        }
         
         // create mileage element
         let mileageElement = document.createElement('td');
@@ -403,7 +411,7 @@ async function displayLeaderboard() {
         
         // add elements to leaderboard
         userRow.appendChild(rankElement);
-        userRow.appendChild(usernameElement);
+        userRow.appendChild(displayNameElement);
         userRow.appendChild(mileageElement);
         
         lbTable.appendChild(userRow);
@@ -448,6 +456,24 @@ function displayWalks() {
     walksTable.appendChild(row);
   }
 }
+
+const optout = document.getElementById('optout');
+const displayNameBox = document.getElementById('displayName');
+const displayLabel = document.getElementById('displayLabel')
+
+function toggleDisplayNameBox() {
+  if (optout.checked) {
+      displayNameBox.classList.add('hidden');
+      displayLabel.classList.add('hidden');
+  } else {
+      displayNameBox.classList.remove('hidden');
+      displayLabel.classList.remove('hidden');
+  }
+}
+
+optout.addEventListener('click', function() {
+  toggleDisplayNameBox();
+});
 
 plotLines();
 plotCities();
